@@ -5,11 +5,10 @@ const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
-const port = 5000;
+const port = 8000;
 
 app.use(cors());
 
-// AWS S3 configuration
 const s3 = new AWS.S3({
   accessKeyId: 'AKIAXYKJVB4MMBQZXTOK',
   secretAccessKey: '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',
@@ -74,6 +73,8 @@ app.get('/api/generate-links', (req, res) => {
     imageUrl: latestImageUrl,
   });
 });
+
+app.use('/api/live', liveRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
