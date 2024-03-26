@@ -15,14 +15,12 @@ const s3 = new AWS.S3({
   region: 'ap-south-1',
 });
 
-// Multer configuration for file uploads
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 let latestAudioUrl = '';
 let latestImageUrl = '';
 
-// Endpoint for uploading audio files
 app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
   try {
     const audioFile = req.file;
@@ -44,7 +42,6 @@ app.post('/api/upload-audio', upload.single('audio'), async (req, res) => {
   }
 });
 
-// Endpoint for uploading image files
 app.post('/api/upload-image', upload.single('image'), async (req, res) => {
   try {
     const imageFile = req.file;
@@ -66,15 +63,12 @@ app.post('/api/upload-image', upload.single('image'), async (req, res) => {
   }
 });
 
-// Endpoint for generating links
 app.get('/api/generate-links', (req, res) => {
   res.json({
     audioUrl: latestAudioUrl,
     imageUrl: latestImageUrl,
   });
 });
-
-app.use('/api/live', liveRouter);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

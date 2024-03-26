@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, jsonify, send_from_directory
 from flask_cors import CORS
 import firebase_admin
@@ -34,7 +33,7 @@ def get_user_data(user_id):
         answers = forms_data.get('answers', [])
 
         # Combine user statistics and answers to form a user query
-        user_query = f"Minutes: {minutes} Sessions: {sessions} {' '.join(answers)}"
+        user_query = ' '.join(answers)
 
         # Calculate embedding for user query
         user_embedding = nlp(user_query).vector
